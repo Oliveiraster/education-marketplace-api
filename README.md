@@ -74,28 +74,27 @@ Este projeto aplica boas práticas com:
 ---
 
 ## 💡 Convenção de Commits
-
-feat: add user module
-fix: resolve login bug
-chore: initial setup
-docs: update README
-refactor: improve structure
+- feat: add user module
+- fix: resolve login bug
+- chore: initial setup
+- docs: update README
+- refactor: improve structure
 
 ---
 
 ## 📌 Status do Projeto
 
-🚧 Em construção
-🧱 Arquitetura base em desenvolvimento
-⚙️ Futuro: autenticação, banco de dados, CI/CD, módulos de cursos e usuários
+- 🚧 Em construção
+- 🧱 Arquitetura base em desenvolvimento
+- ⚙️ Futuro: autenticação, banco de dados, CI/CD, módulos de cursos e usuários
 
 ---
 
 ## 🤝 Contribuição
 
-Este projeto está aberto para colaboração.
-Sugestões, issues e pull requests são bem-vindos!
+- Este projeto está aberto para colaboração.
+- Sugestões, issues e pull requests são bem-vindos!
 
 ## 📄 License
 
-MIT
+- MIT
