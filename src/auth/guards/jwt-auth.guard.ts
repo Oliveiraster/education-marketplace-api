@@ -12,7 +12,7 @@ import { Request } from 'express';
 
 import { createJwtConfig } from '../config/create-jwt-config';
 import { ROLES_KEY } from '../decorators/roles.decorator';
-import { UserType } from '../enum/userType';
+import { UserType } from '../enum/userType.enum';
 import { JwtConfigType } from '../interfaces/jwt-config.interface';
 import { JwtPayload } from '../interfaces/jwt-payload.interface';
 
@@ -52,7 +52,8 @@ export class JwtAuthGuard implements CanActivate {
         secret: this.jwt.auth.secret,
       });
       request.user = payload;
-      if (requiredRoles && !requiredRoles.includes(payload.role)) {
+
+      if (requiredRoles && !requiredRoles.some((role) => payload.roles.includes(role))) {
         throw new ForbiddenException('You do not have permission to access this resource!');
       }
     } catch (err) {
