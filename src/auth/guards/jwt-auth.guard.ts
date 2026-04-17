@@ -52,6 +52,7 @@ export class JwtAuthGuard implements CanActivate {
         secret: this.jwt.auth.secret,
       });
       request.user = payload;
+
       if (requiredRoles && !requiredRoles.some((role) => payload.roles.includes(role))) {
         throw new ForbiddenException('You do not have permission to access this resource!');
       }
