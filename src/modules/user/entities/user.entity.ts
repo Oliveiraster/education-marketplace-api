@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 
 import { Address } from './address.entity';
+import { UserType } from '../../../auth/enum/userType.enum';
 import { UserStatus } from '../enum/userStatus.enum';
 
 @Entity('users')
@@ -14,8 +15,8 @@ export class User {
   @Column({ unique: true })
   email!: string;
 
-  @Column({ nullable: true })
-  role!: string;
+  @Column({ type: 'text', default: UserType.USER })
+  role!: UserType;
 
   @Column()
   password!: string;
@@ -32,7 +33,7 @@ export class User {
   @Column({ nullable: true })
   status!: UserStatus;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn()
   createdAt?: Date;
 
   @OneToMany(() => Address, (address) => address.user)
