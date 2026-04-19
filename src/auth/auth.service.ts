@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UserType } from './enum/userType.enum';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { TokenService } from './services/token.service';
-import { UserService } from '../modules/user/user.service';
+import { UserService } from '../modules/identity/user/user.service';
 
 @Injectable()
 export class AuthService {

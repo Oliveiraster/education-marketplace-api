@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 
 import { Address } from './address.entity';
-import { UserType } from '../../../auth/enum/userType.enum';
+import { UserType } from '../../../../auth/enum/userType.enum';
 import { UserStatus } from '../enum/userStatus.enum';
 
 @Entity('users')

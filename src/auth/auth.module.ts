@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { TokenService } from './services/token.service';
-import { UserModule } from '../modules/user/user.module';
+import { UserModule } from '../modules/identity/user/user.module';
 
 @Module({
   imports: [UserModule, JwtModule.register({})],
