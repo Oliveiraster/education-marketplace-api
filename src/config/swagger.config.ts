@@ -6,9 +6,7 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle('Education Marketplace API')
     .setDescription('API para marketplace educacional')
     .setVersion('1.0')
-    .addTag('users')
-    .addTag('teachers')
-    .addTag('students')
+    .addTag('Users')
     .addBearerAuth()
     .build();
 
