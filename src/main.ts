@@ -1,14 +1,20 @@
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import { authConfig } from './config/auth.config';
 import { setupSwagger } from './config/swagger.config';
+import { validationConfig } from './config/validation.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   setupSwagger(app);
+  authConfig(app);
+  validationConfig(app);
+
   app.setGlobalPrefix('api');
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen(process.env.PORT ?? 5000);
 }
 
 void bootstrap().catch((err) => {

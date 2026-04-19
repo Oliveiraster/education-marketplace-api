@@ -11,8 +11,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
 
 import { createJwtConfig } from '../config/create-jwt-config';
-import { ROLES_KEY } from '../decorators/roles.decorator';
-import { UserType } from '../enum/userType.enum';
+import { IS_PUBLIC_KEY } from '../decorators/auth-public.decorator';
 import { JwtConfigType } from '../interfaces/jwt-config.interface';
 import { JwtPayload } from '../interfaces/jwt-payload.interface';
 
@@ -28,7 +27,7 @@ export class JwtAuthGuard implements CanActivate {
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const isPublic = this.reflector.getAllAndOverride<boolean>('isPublic', [
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
@@ -36,26 +35,19 @@ export class JwtAuthGuard implements CanActivate {
       return true;
     }
 
-    const requiredRoles = this.reflector.getAllAndOverride<UserType[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
-
     const request = context.switchToHttp().getRequest<Request>();
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
       throw new UnauthorizedException('No token provided!');
     }
+
     try {
       const payload = await this.jwtService.verifyAsync<JwtPayload>(token, {
         secret: this.jwt.auth.secret,
       });
-      request.user = payload;
 
-      if (requiredRoles && !requiredRoles.some((role) => payload.roles.includes(role))) {
-        throw new ForbiddenException('You do not have permission to access this resource!');
-      }
+      request.user = payload;
     } catch (err) {
       if (err instanceof ForbiddenException) {
         throw err;
