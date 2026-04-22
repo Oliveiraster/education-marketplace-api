@@ -30,7 +30,7 @@ export class User {
   @Column({ nullable: true })
   photo?: string;
 
-  @Column({ nullable: true })
+  @Column({ default: UserStatus.PENDING })
   status!: UserStatus;
 
   @CreateDateColumn()
