@@ -1,4 +1,11 @@
-import { Body, Controller, Param, ParseIntPipe, UploadedFile } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Param,
+  ParseIntPipe,
+  UploadedFile,
+} from '@nestjs/common';
 import { Post } from '@nestjs/common';
 import { UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -24,6 +31,9 @@ export class AssetsController {
     @Body() dto: UploadAssetsDto,
     @UploadedFile() file: Express.Multer.File,
   ) {
+    if (!file) {
+      throw new BadRequestException('File is required');
+    }
     const command: UploadAssetCommand = {
       courseId,
       userId: user.sub,
