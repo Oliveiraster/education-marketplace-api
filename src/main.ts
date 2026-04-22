@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
 import { authConfig } from './config/auth.config';
+import { staticServe } from './config/serve-static.config';
 import { setupSwagger } from './config/swagger.config';
 import { validationConfig } from './config/validation.config';
 
@@ -11,6 +12,7 @@ async function bootstrap() {
   setupSwagger(app);
   authConfig(app);
   validationConfig(app);
+  staticServe(app);
 
   app.setGlobalPrefix('api');
 
