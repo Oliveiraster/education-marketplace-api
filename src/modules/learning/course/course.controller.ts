@@ -5,7 +5,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { Roles } from '../../../auth/decorators/roles.decorator';
 import { UserType } from '../../../auth/enum/userType.enum';
 
-Roles(UserType.TEACHER);
+Roles(UserType.INSTRUCTOR);
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
