@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserType } from './enum/userType.enum';
@@ -15,13 +15,13 @@ export class AuthService {
 
   async createUser(userDto: CreateUserDto) {
     if (await this.userService.findByEmail(userDto.email)) {
-      throw new Error('User with this email already exists.');
+      throw new BadRequestException('User with this email already exists.');
     }
     const user = await this.userService.create(userDto);
 
     const userSave = await this.userService.findByEmail(user.email);
     if (!userSave) {
-      throw new Error('Error creating user.');
+      throw new BadRequestException('Error creating user.');
     }
     const payload: JwtPayload = {
       sub: userSave.id,
