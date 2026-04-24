@@ -1,7 +1,7 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
 
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserType } from './enum/userType.enum';
+import { LoginDto } from './dto/login.dto';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { TokenService } from './services/token.service';
 import { UserService } from '../modules/identity/user/user.service';
@@ -26,8 +26,22 @@ export class AuthService {
     const payload: JwtPayload = {
       sub: userSave.id,
       email: userSave.email,
-      roles: [userSave.role] as UserType[],
+      roles: [userSave.role],
     };
+    return this.tokenService.generateAuthToken(payload);
+  }
+
+  async login(dto: LoginDto) {
+    const user = await this.userService.findByEmail(dto.email);
+    if (!user || user.password !== dto.password) {
+      throw new ForbiddenException('email or password not exist!');
+    }
+    const payload: JwtPayload = {
+      sub: user.id,
+      email: user.email,
+      roles: [user.role],
+    };
+
     return this.tokenService.generateAuthToken(payload);
   }
 }
