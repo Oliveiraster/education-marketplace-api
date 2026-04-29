@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException } from '@nestjs/common';
+import { BadRequestException, UnauthorizedException } from '@nestjs/common';
 import type { TestingModule } from '@nestjs/testing';
 import { Test } from '@nestjs/testing';
 
@@ -110,7 +110,7 @@ describe('AuthService', () => {
     it('should throw error if user does not exist', async () => {
       mockUserService.findByEmail.mockResolvedValue(null);
 
-      await expect(service.login(loginDto)).rejects.toThrow(ForbiddenException);
+      await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
     });
 
     it('should throw error if password is incorrect', async () => {
@@ -123,7 +123,7 @@ describe('AuthService', () => {
 
       mockUserService.findByEmail.mockResolvedValue(user);
 
-      await expect(service.login(loginDto)).rejects.toThrow(ForbiddenException);
+      await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
     });
   });
 });
