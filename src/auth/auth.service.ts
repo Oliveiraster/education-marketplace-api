@@ -1,4 +1,5 @@
-import { BadRequestException, ForbiddenException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
@@ -34,7 +35,7 @@ export class AuthService {
   async login(dto: LoginDto) {
     const user = await this.userService.findByEmail(dto.email);
     if (!user || user.password !== dto.password) {
-      throw new ForbiddenException('email or password not exist!');
+      throw new UnauthorizedException('email or password not exist!');
     }
     const payload: JwtPayload = {
       sub: user.id,
