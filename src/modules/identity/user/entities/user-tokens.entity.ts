@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
 
 import { User } from './user.entity';
 
@@ -11,11 +11,9 @@ export class UserToken {
   token!: string;
 
   @Column()
-  type!: string;
-
-  @Column()
   expiresAt!: Date;
 
-  @ManyToOne(() => User)
+  @OneToOne(() => User, { nullable: false, onDelete: 'CASCADE' })
+  @JoinColumn()
   user!: User;
 }

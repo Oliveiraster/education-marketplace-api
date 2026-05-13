@@ -1,5 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+  OneToOne,
+} from 'typeorm';
 
+import { About } from './about.entity';
 import { Address } from './address.entity';
 import { UserType } from '../../../../auth/enum/userType.enum';
 import { UserStatus } from '../enum/userStatus.enum';
@@ -38,4 +46,7 @@ export class User {
 
   @OneToMany(() => Address, (address) => address.user)
   addresses!: Address[];
+
+  @OneToOne(() => About, (about) => about.user)
+  about!: About;
 }

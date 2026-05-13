@@ -9,4 +9,8 @@ export class StorageService {
   async upload(courseId: number, extension: string, file: Express.Multer.File) {
     return this.localService.uploadToCourse(courseId, extension, file);
   }
+
+  uploadPhoto(userId: number, extension: string, file: Express.Multer.File) {
+    return this.localService.uploadPhoto(userId, extension, file);
+  }
 }
